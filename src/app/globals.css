@@ -112,13 +112,16 @@ gap:25px;
 #articleCard #txt{
   display: flex;
   flex-direction: column;
-  gap:25px;
+  gap: 5px;
   }
 
 #articleCard img{
   width: 300px;
-  border-radius: 5px;
   height:auto;
+  min-height: 200px;
+  background-color: #555;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 #articleCard #description{

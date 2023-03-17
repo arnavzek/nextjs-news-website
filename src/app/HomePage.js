@@ -52,7 +52,12 @@ export default function HomePage() {
       </div>
 
       <div id="main">
-        <div id="categories"> {renderCategories()} </div>
+        <div id="categories">
+          <div id="category" key={"all"} onClick={fetchArticles}>
+            All
+          </div>
+          {renderCategories()}
+        </div>
         <div id="content">{renderArticle()}</div>
       </div>
     </>
@@ -97,13 +102,18 @@ export default function HomePage() {
   }
 
   function renderCategories() {
-    let data = [
-      <div id="category" key={"all"} onClick={fetchArticles}>
-        All
-      </div>,
+    let categories = [
+      "Technology",
+      "Finance",
+      "Health",
+      "Sports",
+      "Politics",
+      "Cricket",
+      "Fashion",
+      "Entertainment",
+      "Science",
+      "Physics",
     ];
-
-    let categories = ["Technology", "Finance", "Health", "Sports", "Cricket"];
 
     let list = categories.map((item) => (
       <div
@@ -117,7 +127,7 @@ export default function HomePage() {
       </div>
     ));
 
-    return [data, list];
+    return list;
   }
 
   function renderArticle() {
