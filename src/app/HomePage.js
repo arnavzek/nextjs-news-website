@@ -108,6 +108,7 @@ export default function HomePage() {
     let list = categories.map((item) => (
       <div
         id="category"
+        key={item}
         onClick={() => {
           search(item);
         }}
@@ -124,6 +125,6 @@ export default function HomePage() {
 
     if (!news.articles) return [];
 
-    return news.articles.map((item) => <Article content={item} />);
+    return news.articles.map((item, i) => <Article key={i} content={item} />);
   }
 }
