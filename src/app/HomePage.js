@@ -98,7 +98,7 @@ export default function HomePage() {
 
   function renderCategories() {
     let data = [
-      <div id="category" onClick={fetchArticles}>
+      <div id="category" key={"all"} onClick={fetchArticles}>
         All
       </div>,
     ];
