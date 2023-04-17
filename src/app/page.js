@@ -5,7 +5,7 @@ import HomePage from "./HomePage";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const revalidate = 3600;
+export const revalidate = 0;
 
 export default async function Home({ searchParams }) {
   // return JSON.stringify(searchParams);
