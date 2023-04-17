@@ -4,20 +4,21 @@ import { useEffect, useState } from "react";
 import Article from "./Article";
 import BounceLoader from "react-spinners/BounceLoader";
 import { BiSearch } from "react-icons/bi";
+import Link from "next/link";
 const override = {
   display: "block",
   margin: "0 auto",
   borderColor: "red",
 };
 
-export default function HomePage() {
-  const [news, setNews] = useState([]);
+export default function HomePage({ news }) {
+  // const [news, setNews] = useState([]);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchArticles();
+    // fetchArticles();
   }, []);
 
   if (loading)
@@ -45,17 +46,21 @@ export default function HomePage() {
             placeholder="Search"
             id="searchBar"
           ></input>
-          <button id="searchBtn" onClick={doSearch}>
-            <BiSearch />
-          </button>
+          <a href={"/?q=" + searchQuery}>
+            <button id="searchBtn">
+              <BiSearch />
+            </button>
+          </a>
         </div>
       </div>
 
       <div id="main">
         <div id="categories">
-          <div id="category" key={"all"} onClick={fetchArticles}>
-            All
-          </div>
+          <a href={"/?q=news"}>
+            <div id="category" key={"all"}>
+              All
+            </div>
+          </a>
           {renderCategories()}
         </div>
         <div id="content">{renderArticle()}</div>
@@ -65,40 +70,6 @@ export default function HomePage() {
 
   function updateSearchQuery(e) {
     setSearchQuery(e.target.value);
-  }
-
-  function doSearch() {
-    search(searchQuery);
-  }
-
-  function fetchArticles() {
-    setLoading(true);
-
-    fetch(
-      "https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=a3c07f0a1f4746698d502d7ca3778a5c"
-    )
-      .then((data) => data.json())
-      .then((res) => {
-        setNews(res);
-        setLoading(false);
-        console.log(res);
-      });
-  }
-
-  function search(query) {
-    if (!query) return null;
-    setLoading(true);
-    if (!query) query = "";
-
-    fetch(
-      `https://newsapi.org/v2/everything?q=${query}&from=2023-02-17&sortBy=publishedAt&apiKey=a3c07f0a1f4746698d502d7ca3778a5c`
-    )
-      .then((data) => data.json())
-      .then((res) => {
-        setNews(res);
-        setLoading(false);
-        console.log(res);
-      });
   }
 
   function renderCategories() {
@@ -116,15 +87,12 @@ export default function HomePage() {
     ];
 
     let list = categories.map((item) => (
-      <div
-        id="category"
-        key={item}
-        onClick={() => {
-          search(item);
-        }}
-      >
-        {item}
-      </div>
+      <a href={"/?q=" + item}>
+        {" "}
+        <div id="category" key={item}>
+          {item}
+        </div>{" "}
+      </a>
     ));
 
     return list;
@@ -135,6 +103,7 @@ export default function HomePage() {
 
     if (!news.articles) return [];
 
-    return news.articles.map((item, i) => <Article key={i} content={item} />);
+    let articles = news.articles.slice(0, 10);
+    return articles.map((item, i) => <Article key={i} content={item} />);
   }
 }
