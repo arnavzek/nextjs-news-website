@@ -87,7 +87,7 @@ export default function HomePage({ news }) {
     ];
 
     let list = categories.map((item) => (
-      <a href={"/?q=" + item}>
+      <a key={item} href={"/?q=" + item}>
         {" "}
         <div id="category" key={item}>
           {item}

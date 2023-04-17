@@ -105,6 +105,11 @@ color:#fff;
 gap:25px;
 }
 
+a{
+  text-decoration: none;
+  color:#fff;
+}
+
 #articleCard :hover{
   text-decoration: underline;
   }
